@@ -1,4 +1,8 @@
+from time import time
+import psutil
+import os
 from common import randomForRound
+from datetime import datetime
 #  Python 3 program 
 #  Implementation of Round Robin scheduling
 class RoundRobin :
@@ -81,14 +85,22 @@ class RoundRobin :
 		print(" Average Turn Around Time : ", (total_turnaround_time / n) )
 	
 
-def robin_main():
+def robin_main(data,n):
+
+	p1 = os.getpid()
+	print("process ID for Round Robin ",p1,datetime.now())
+	F_cpu_Util = psutil.cpu_times()
+	F_Disk_Util = psutil.disk_usage('/')
+	p = psutil.Process()
+	F_Memory_Util = p.memory_full_info()
+	# print("Initial Round Robin Util",F_cpu_Util,F_Memory_Util,F_Disk_Util)
 	obj = RoundRobin()
-	n = input("Number of processors: ")
-	n = int(n)
+	# n = input("Number of processors: ")
+	# n = int(n)
 	# Process set
-	processes = randomForRound('process',n)
+	processes = data[0]
 	# Burst time of process set  
-	burst_time = randomForRound('burst',n)
+	burst_time = data[1]
 	#  Assume that size of process and burst time is equal
 	#  Get size
 	n = len(processes)

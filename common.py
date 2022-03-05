@@ -1,26 +1,35 @@
+from concurrent.futures import process
 import random
 
-def randomGeneratorPriority(n):
-    finalArray=[]
-    n = int(n)
+# Generates random number for waiting time and burst time
+# response is obj
+def RandomNumberGenerator(n):
+    process_Num = []
+    waiting_Time = []
+    burstTime = []
     for x in range(n):
-        out = []
-        num = x
-        burstTime = random.randrange(1, 10)
-        waiting = random.randrange(1,10)
-        out.append(num)
-        out.append(burstTime)
-        out.append(waiting)
-        finalArray.append(out)
-    return finalArray
+        b = random.randrange(1, 10)
+        w = random.randrange(1,10)
+        process_Num.append(x)
+        waiting_Time.append(w)
+        burstTime.append(b)
+    return {'p':process_Num,'w':waiting_Time,'b':burstTime}
+        
 
+def round(data):
+    process_num = data['p']
+    burst = data['b']
+    return process_num,burst
 
-def randomForRound(type_data,n):
-    finalArray=[]
-    for x in range(n):
-        if type_data == 'process':
-            out = x
-        else:
-            out = random.randrange(1,10)
-        finalArray.append(out)
-    return finalArray
+def prio(data):
+    finalData = []
+    process_num = data['p']
+    burst = data['b']
+    wait = data['w']
+    for x in range (len(process_num)):
+        subArray = []
+        subArray.append(process_num[x])
+        subArray.append(burst[x])
+        subArray.append(wait[x])
+        finalData.append(subArray)
+    return finalData

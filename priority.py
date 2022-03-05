@@ -1,5 +1,7 @@
+import psutil
+import os
 from common import randomGeneratorPriority
-# Python3 program for implementation of
+from datetime import datetime
 # Priority Scheduling
 
 # Function to find the waiting time
@@ -49,23 +51,30 @@ def findavgTime(processes, n):
 	print("\nAverage waiting time = %.5f "%(total_wt /n))
 	print("Average turn around time = ", total_tat / n)
 
+	F_cpu_Util = psutil.cpu_times()
+	F_Disk_Util = psutil.disk_usage('/')
+	p = psutil.Process()
+	F_Memory_Util = p.memory_info()
+	# print("Initial Priority Util",F_cpu_Util,F_Memory_Util,F_Disk_Util)
+
 def priorityScheduling(proc, n):
 	
 	# Sort processes by priority
 	proc = sorted(proc, key = lambda proc:proc[2],
-								reverse = True);
+								reverse = True)
 
 	print("Order in which processes gets executed")
 	for i in proc:
 		print(i[0], end = " ")
 	findavgTime(proc, n)
     
-def priority_main():
-    m = input(" Number of processors: ") 
-    m = int(m)
-    proc = randomGeneratorPriority(m)
+def priority_main(data,n):
+
+	p2 = os.getpid()
+	print("Process Id for priority",p2,datetime.now())
+	proc = data
     # Process id's
-    priorityScheduling(proc, m)
+	priorityScheduling(proc, n)
 
 # Driver code
 if __name__ =="__main__":priority_main()
