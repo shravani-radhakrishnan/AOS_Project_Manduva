@@ -1,4 +1,3 @@
-from concurrent.futures import process
 import random
 
 # Generates random number for waiting time and burst time
@@ -15,11 +14,16 @@ def RandomNumberGenerator(n):
         burstTime.append(b)
     return {'p':process_Num,'w':waiting_Time,'b':burstTime}
         
+# Formarts the response of RandomNumberGenerator compatible 
+# For Round_Robin
 
 def round(data):
     process_num = data['p']
     burst = data['b']
     return process_num,burst
+
+# Formarts the response of RandomNumberGenerator compatible 
+# For Priority
 
 def prio(data):
     finalData = []
@@ -33,3 +37,9 @@ def prio(data):
         subArray.append(wait[x])
         finalData.append(subArray)
     return finalData
+
+def utilization_calc(start,end):
+    startUtil = start
+    endUtil = end
+    print("----><----",startUtil[:1],type(startUtil))
+

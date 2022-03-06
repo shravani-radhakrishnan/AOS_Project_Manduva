@@ -1,6 +1,5 @@
 import psutil
 import os
-from common import randomGeneratorPriority
 from datetime import datetime
 # Priority Scheduling
 
@@ -36,8 +35,7 @@ def findavgTime(processes, n):
 	findTurnAroundTime(processes, n, wt, tat)
 
 	# Display processes along with all details
-	print("\nProcesses, Burst Time, Waiting",
-		"Time Turn-Around Time")
+	print(" (Process) (Burst Time) (Waiting Time) (Turn Around Time)")
 	total_wt = 0
 	total_tat = 0
 	for i in range(n):
@@ -51,11 +49,6 @@ def findavgTime(processes, n):
 	print("\nAverage waiting time = %.5f "%(total_wt /n))
 	print("Average turn around time = ", total_tat / n)
 
-	F_cpu_Util = psutil.cpu_times()
-	F_Disk_Util = psutil.disk_usage('/')
-	p = psutil.Process()
-	F_Memory_Util = p.memory_info()
-	# print("Initial Priority Util",F_cpu_Util,F_Memory_Util,F_Disk_Util)
 
 def priorityScheduling(proc, n):
 	
